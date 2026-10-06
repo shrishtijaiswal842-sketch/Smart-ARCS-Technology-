@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>ARCS AI | Industrial Digital Twin</title>
+
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+body{
+    font-family:Arial,Helvetica,sans-serif;
+    background:#05080c;
+    color:#f4f7fa;
+    line-height:1.5;
+}
+
+header{
+    padding:22px;
+    border-bottom:1px solid #27313c;
+    background:#090e14;
+}
+
+.header{
+    max-width:1200px;
+    margin:auto;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:20px;
+}
+
+.logo{
+    font-size:28px;
+    font-weight:800;
+    letter-spacing:2px;
+}
+
+.subtitle{
+    color:#8793a0;
+    font-size:13px;
+    margin-top:3px;
+}
+
+.online{
+    color:#62ed91;
+    border:1px solid #245a38;
+    background:#0c2115;
+    padding:8px 13px;
+    border-radius:20px;
+    font-size:12px;
+    font-weight:bold;
+}
+
+main{
+    width:min(1200px,94%);
+    margin:auto;
+    padding:25px 0 50px;
+}
+
+.hero{
+    padding:25px;
+    border:1px solid #26313d;
+    border-radius:18px;
+    background:linear-gradient(145deg,#0c1219,#080c11);
+    margin-bottom:20px;
+}
+
+.hero h1{
+    font-size:clamp(28px,5vw,48px);
+    margin-bottom:10px;
+}
+
+.hero p{
+    color:#a5b0bb;
+    max-width:850px;
+}
+
+.tags{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+    margin-top:18px;
+}
+
+.tag{
+    padding:7px 11px;
+    border:1px solid #303c49;
+    border-radius:20px;
+    color:#b9c4ce;
+    font-size:12px;
+}
+
+.tripo{
+    margin-top:22px;
+    display:inline-block;
+    text-decoration:none;
+    color:#fff;
+    background:#1769ff;
+    padding:13px 18px;
+    border-radius:10px;
+    font-weight:bold;
+}
+
+.tripo:hover{
+    opacity:.85;
+}
+
+.grid{
+    display:grid;
+    grid-template-columns:1.5fr 1fr;
+    gap:20px;
+}
+
+.panel{
+    background:#0b1118;
+    border:1px solid #26313d;
+    border-radius:16px;
+    padding:20px;
+    margin-bottom:20px;
+}
+
+.panel h2{
+    font-size:19px;
+    margin-bottom:15px;
+}
+
+.model{
+    min-height:430px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    overflow:auto;
+    border:1px solid #222d38;
+    border-radius:12px;
+    background:
+        radial-gradient(circle at center,#18222c 0,#0b1016 48%,#070a0e 100%);
+}
+
+.plant{
+    min-width:760px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    padding:40px;
+}
+
+.machine{
+    width:130px;
+    height:105px;
+    border:2px solid #526171;
+    border-radius:12px;
+    background:#151e27;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    font-size:12px;
+    font-weight:bold;
+    cursor:pointer;
+    transition:.2s;
+    position:relative;
+}
+
+.machine:hover,
+.machine.active{
+    transform:translateY(-5px);
+    border-color:#fff;
+}
+
+.sensor-dot{
+    width:10px;
+    height:10px;
+    border-radius:50%;
+    background:#50ee86;
+    position:absolute;
+    top:9px;
+    right:9px;
+    box-shadow:0 0 10px #50ee86;
+}
+
+.pipe{
+    width:45px;
+    height:10px;
+    border-radius:8px;
+    background:#566473;
+}
+
+.hint{
+    color:#778491;
+    font-size:12px;
+    margin-top:12px;
+    text-align:center;
+}
+
+.sensor-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+}
+
+.sensor{
+    padding:15px;
+    border:1px solid #27333f;
+    border-radius:11px;
+    background:#121a22;
+}
+
+.sensor-name{
+    color:#8f9ca8;
+    font-size:12px;
+}
+
+.sensor-value{
+    font-size:23px;
+    font-weight:bold;
+    margin-top:5px;
+}
+
+.good{
+    color:#64ed91;
+}
+
+.warning{
+    color:#ffc857;
+}
+
+button{
+    border:0;
+    border-radius:9px;
+    padding:12px 15px;
+    cursor:pointer;
+    font-weight:bold;
+}
+
+.simulate{
+    margin-top:14px;
+    background:#e7edf3;
+    color:#081018;
+    width:100%;
+}
+
+.ai-status{
+    display:inline-block;
+    padding:8px 12px;
+    border-radius:8px;
+    background:#0d2918;
+    color:#65ed91;
+    font-size:12px;
+    font-weight:bold;
+    margin-bottom:13px;
+}
+
+.ai-message{
+    color:#aab5bf;
+}
+
+.info{
+    color:#aab5bf;
+}
+
+.info strong{
+    color:#fff;
+}
+
+.component-list{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:9px;
+    margin-top:15px;
+}
+
+.component-button{
+    background:#121a22;
+    color:#dce4eb;
+    border:1px solid #2b3743;
+}
+
+.component-button:hover{
+    border-color:#fff;
+}
+
+.architecture{
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+    gap:8px;
+    align-items:center;
+}
+
+.stage{
+    padding:15px 8px;
+    text-align:center;
+    background:#121a22;
+    border:1px solid #2b3743;
+    border-radius:10px;
+    font-size:12px;
+}
+
+.arrow{
+    text-align:center;
+    color:#778591;
+}
+
+.ai-box{
+    border:1px solid #26333f;
+    background:#0d141c;
+    border-radius:12px;
+    padding:18px;
+}
+
+.ai-box p{
+    color:#a6b1bc;
+    font-size:14px;
+}
+
+footer{
+    text-align:center;
+    border-top:1px solid #222d37;
+    padding:25px;
+    color:#75818d;
+    font-size:12px;
+}
+
+.demo{
+    color:#e7b94e;
+    margin-top:5px;
+}
+
+@media(max-width:850px){
+    .grid{
+        grid-template-columns:1fr;
+    }
+
+    .architecture{
+        grid-template-columns:1fr;
+    }
+
+    .arrow{
+        transform:rotate(90deg);
+    }
+}
+
+@media(max-width:600px){
+    .header{
+        flex-direction:column;
+        align-items:flex-start;
+    }
+
+    .sensor-grid{
+        grid-template-columns:1fr;
+    }
+
+    .component-list{
+        grid-template-columns:1fr;
+    }
+
+    .hero,
+    .panel{
+        padding:15px;
+    }
+}
+</style>
+</head>
+
+
+<body>
+
+<header>
+<div class="header">
+
+<div>
+<div class="logo">ARCS AI</div>
+<div class="subtitle">
+Autonomous Recycling & Circular Systems
+</div>
+</div>
+
+<div class="online">
+● DIGITAL TWIN ONLINE
+</div>
+
+</div>
+</header>
+
+
+<main>
+
+<section class="hero">
+
+<h1>Industrial AI Digital Twin</h1>
+
+<p>
+An interactive prototype for an AI-assisted plastic-waste processing
+system combining industrial process visualization, sensor intelligence,
+component monitoring and future Gemini-powered analysis.
+</p>
+
+<div class="tags">
+<span class="tag">AI</span>
+<span class="tag">Digital Twin</span>
+<span class="tag">Industrial IoT</span>
+<span class="tag">3D Visualization</span>
+<span class="tag">Circular Economy</span>
+<span class="tag">Sustainability</span>
+</div>
+
+<a
+class="tripo"
+href="https://studio.tripo3d.ai/3d-model/a7b57c2e-7957-4389-8e2b-32e2d60e193e?invite_code=03ESNP"
+target="_blank"
+rel="noopener noreferrer">
+
+🚀 VIEW FULL 3D MODEL ON TRIPO
+
+</a>
+
+</section>
+
+
+<div class="grid">
+
+
+<section>
+
+<div class="panel">
+
+<h2>🏭 Interactive Industrial Digital Twin</h2>
+
+<div class="model">
+
+<div class="plant">
+
+<div class="machine"
+onclick="selectComponent('Primary Shredder',this)">
+<span class="sensor-dot"></span>
+PRIMARY<br>SHREDDER
+</div>
+
+<div class="pipe"></div>
+
+<div class="machine"
+onclick="selectComponent('Cryogenic Feed',this)">
+<span class="sensor-dot"></span>
+CRYOGENIC<br>FEED
+</div>
+
+<div class="pipe"></div>
+
+<div class="machine"
+onclick="selectComponent('Quartz Reactor',this)">
+<span class="sensor-dot"></span>
+QUARTZ<br>REACTOR
+</div>
+
+<div class="pipe"></div>
+
+<div class="machine"
+onclick="selectComponent('Condenser',this)">
+<span class="sensor-dot"></span>
+CONDENSER
+</div>
+
+<div class="pipe"></div>
+
+<div class="machine"
+onclick="selectComponent('Gas Scrubber',this)">
+<span class="sensor-dot"></span>
+GAS<br>SCRUBBER
+</div>
+
+</div>
+
+</div>
+
+<div class="hint">
+Tap a machine component to inspect its function.
+</div>
+
+</div>
+
+
+<div class="panel">
+
+<h2>🔍 Component Intelligence</h2>
+
+<h3 id="componentName">
+Select a component
+</h3>
+
+<p class="info" id="componentInfo">
+Choose a component from the digital twin.
+</p>
+
+<div class="component-list">
+
+<button class="component-button"
+onclick="selectComponent('Primary Shredder')">
+Primary Shredder
+</button>
+
+<button class="component-button"
+onclick="selectComponent('Cryogenic Feed')">
+Cryogenic Feed
+</button>
+
+<button class="component-button"
+onclick="selectComponent('Quartz Reactor')">
+Quartz Reactor
+</button>
+
+<button class="component-button"
+onclick="selectComponent('Condenser')">
+Condenser
+</button>
+
+<button class="component-button"
+onclick="selectComponent('Gas Scrubber')">
+Gas Scrubber
+</button>
+
+<button class="component-button"
+onclick="selectComponent('AI Control System')">
+AI Control System
+</button>
+
+</div>
+
+</div>
+
+
+<div class="panel">
+
+<h2>🔄 Process Architecture</h2>
+
+<div class="architecture">
+
+<div class="stage">
+Plastic<br>Feedstock
+</div>
+
+<div class="arrow">→</div>
+
+<div class="stage">
+Size<br>Reduction
+</div>
+
+<div class="arrow">→</div>
+
+<div class="stage">
+Thermal<br>Processing
+</div>
+
+<div class="arrow">→</div>
+
+<div class="stage">
+Condensation<br>& Treatment
+</div>
+
+<div class="arrow">→</div>
+
+<div class="stage">
+Recovery &<br>Monitoring
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<section>
+
+<div class="panel">
+
+<h2>📡 Sensor Dashboard</h2>
+
+<div class="sensor-grid">
+
+<div class="sensor">
+<div class="sensor-name">🌡 Temperature</div>
+<div class="sensor-value" id="temperature">742 °C</div>
+</div>
+
+<div class="sensor">
+<div class="sensor-name">🔵 Pressure</div>
+<div class="sensor-value" id="pressure">1.08 bar</div>
+</div>
+
+<div class="sensor">
+<div class="sensor-name">🌊 Flow</div>
+<div class="sensor-value" id="flow">18.4 L/min</div>
+</div>
+
+<div class="sensor">
+<div class="sensor-name">📳 Vibration</div>
+<div class="sensor-value" id="vibration">2.7 mm/s</div>
+</div>
+
+<div class="sensor">
+<div class="sensor-name">⚡ Motor Current</div>
+<div class="sensor-value" id="current">31.2 A</div>
+</div>
+
+<div class="sensor">
+<div class="sensor-name">🧪 Gas Index</div>
+<div class="sensor-value" id="gas">0.18</div>
+</div>
+
+</div>
+
+<button
+class="simulate"
+onclick="simulateSensors()">
+
+⚙️ RUN SENSOR SIMULATION
+
+</button>
+
+</div>
+
+
+<div class="panel">
+
+<h2>🧠 AI Control System</h2>
+
+<div class="ai-box">
+
+<div class="ai-status" id="aiStatus">
+AI STATUS: NORMAL
+</div>
+
+<p id="aiMessage">
+The digital twin is monitoring the simulated process
+parameters. Future hardware integration can replace the
+simulation layer with real sensor measurements.
+</p>
+
+</div>
+
+</div>
+
+
+<div class="panel">
+
+<h2>📊 System Status</h2>
+
+<p class="info">
+<strong>Process:</strong> RUNNING
+</p>
+
+<p class="info">
+<strong>Digital Twin:</strong> ACTIVE
+</p>
+
+<p class="info">
+<strong>Sensor Layer:</strong> SIMULATION
+</p>
+
+<p class="info">
+<strong>AI Layer:</strong> READY
+</p>
+
+<p class="info">
+<strong>3D Model:</strong>
+<a
+href="https://studio.tripo3d.ai/3d-model/a7b57c2e-7957-4389-8e2b-32e2d60e193e?invite_code=03ESNP"
+target="_blank"
+rel="noopener noreferrer"
+style="color:#6da5ff">
+
+Open Tripo Model
+
+</a>
+</p>
+
+</div>
+
+</section>
+
+</div>
+
+
+<section class="panel">
+
+<h2>🧠 AI Data Pipeline</h2>
+
+<div class="architecture">
+
+<div class="stage">
+Sensors
+</div>
+
+<div class="arrow">→</div>
+
+<div class="stage">
+Digital<br>Twin
+</div>
+
+<div class="arrow">→</div>
+
+<div class="stage">
+AI<br>Analysis
+</div>
+
+<div class="arrow">→</div>
+
+<div class="stage">
+Anomaly<br>Detection
+</div>
+
+<div class="arrow">→</div>
+
+<div class="stage">
+Operator<br>Decision
+</div>
+
+</div>
+
+</section>
+
+
+<section class="panel">
+
+<h2>🌐 Project Links</h2>
+
+<p class="info">
+<strong>3D Model:</strong>
+</p>
+
+<p>
+<a
+href="https://studio.tripo3d.ai/3d-model/a7b57c2e-7957-4389-8e2b-32e2d60e193e?invite_code=03ESNP"
+target="_blank"
+rel="noopener noreferrer"
+style="color:#6da5ff;word-break:break-all">
+
+https://studio.tripo3d.ai/3d-model/a7b57c2e-7957-4389-8e2b-32e2d60e193e?invite_code=03ESNP
+
+</a>
+</p>
+
+</section>
+
+</main>
+
+
+<footer>
+
+<p>
+ARCS AI • Industrial Digital Twin Prototype
+</p>
+
+<p class="demo">
+⚠ DEMONSTRATION MODE — Sensor readings shown here are simulated
+and are not measurements from physical sensors.
+</p>
+
+</footer>
+
+
+<script>
+
+const components = {
+
+"Primary Shredder":
+"Represents the primary mechanical size-reduction stage for incoming plastic feedstock.",
+
+"Cryogenic Feed":
+"Represents controlled feedstock preparation and insulated material-transfer infrastructure.",
+
+"Quartz Reactor":
+"Represents the high-temperature processing chamber in the ARCS process concept.",
+
+"Condenser":
+"Represents cooling and condensation of process vapors into recoverable fractions.",
+
+"Gas Scrubber":
+"Represents a gas-treatment stage intended to reduce unwanted process-gas components.",
+
+"AI Control System":
+"Monitors process parameters and can later use Gemini-based reasoning for anomaly detection, explanations and operator assistance."
+
+};
+
+
+function selectComponent(name,element){
+
+document.getElementById("componentName")
+.textContent=name;
+
+document.getElementById("componentInfo")
+.textContent=components[name] ||
+"Component information unavailable.";
+
+document
+.querySelectorAll(".machine")
+.forEach(x=>x.classList.remove("active"));
+
+if(element){
+element.classList.add("active");
+}
+
+}
+
+
+function simulateSensors(){
+
+const temperature =
+Math.round(700 + Math.random()*100);
+
+const pressure =
+(0.9 + Math.random()*0.4).toFixed(2);
+
+const flow =
+(15 + Math.random()*8).toFixed(1);
+
+const vibration =
+(1.5 + Math.random()*2).toFixed(1);
+
+const current =
+(25 + Math.random()*12).toFixed(1);
+
+const gas =
+(0.10 + Math.random()*0.20).toFixed(2);
+
+
+document.getElementById("temperature")
+.textContent=temperature+" °C";
+
+document.getElementById("pressure")
+.textContent=pressure+" bar";
+
+document.getElementById("flow")
+.textContent=flow+" L/min";
+
+document.getElementById("vibration")
+.textContent=vibration+" mm/s";
+
+document.getElementById("current")
+.textContent=current+" A";
+
+document.getElementById("gas")
+.textContent=gas;
+
+
+let status="AI STATUS: NORMAL";
+
+let message=
+"AI monitoring: current simulated parameters appear within the demonstration range.";
+
+
+if(temperature>780){
+
+status="AI STATUS: ATTENTION";
+
+message=
+"AI monitoring: elevated simulated temperature detected. Thermal-control inspection recommended.";
+
+}
+
+if(vibration>3.2){
+
+status="AI STATUS: ATTENTION";
+
+message=
+"AI monitoring: elevated simulated vibration detected. Rotating-equipment inspection recommended.";
+
+}
+
+
+document.getElementById("aiStatus")
+.textContent=status;
+
+document.getElementById("aiMessage")
+.textContent=message;
+
+}
+
+
+</script>
+
+</body>
+  </html>
