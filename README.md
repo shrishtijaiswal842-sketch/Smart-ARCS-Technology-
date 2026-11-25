@@ -9,7 +9,7 @@ ARCS AI — an AI-powered industrial digital twin for intelligent plastic-waste 
 [![Built With Kiro](https://shields.io)](./.kiro/specs/arcs-digital-twin.md)
 [![License: MIT](https://shields.io)](./LICENSE)
 
-> **⚠️ DEMONSTRATION MODE:** The live web dashboard (`smartarcstechnology.netlify.app`) runs simulated SCADA/HMI telemetry. Yields and financial figures represent our proposed 1-TPD pilot engineering model and are subject to experimental lab validation.
+> **⚠️ DEMONSTRATION MODE:** The live web dashboard (`smartarcstechnology.netlify.app`) runs simulated SCADA/HMI telemetry. Yields and financial figures represent our proposed 1-TPD pilot engineering model and are subject to experimental lab validation. 
 
 ---
 
