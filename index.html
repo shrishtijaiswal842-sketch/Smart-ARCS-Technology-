@@ -2,889 +2,245 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>ARCS AI | Industrial Digital Twin</title>
-
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>A.R.C.S. Technologies | Edge-AI Digital Twin</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;600&family=Barlow+Condensed:wght@600;700&display=swap">
 <style>
-*{
-    box-sizing:border-box;
-    margin:0;
-    padding:0;
-}
-
-body{
-    font-family:Arial,Helvetica,sans-serif;
-    background:#05080c;
-    color:#f4f7fa;
-    line-height:1.5;
-}
-
-header{
-    padding:22px;
-    border-bottom:1px solid #27313c;
-    background:#090e14;
-}
-
-.header{
-    max-width:1200px;
-    margin:auto;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    gap:20px;
-}
-
-.logo{
-    font-size:28px;
-    font-weight:800;
-    letter-spacing:2px;
-}
-
-.subtitle{
-    color:#8793a0;
-    font-size:13px;
-    margin-top:3px;
-}
-
-.online{
-    color:#62ed91;
-    border:1px solid #245a38;
-    background:#0c2115;
-    padding:8px 13px;
-    border-radius:20px;
-    font-size:12px;
-    font-weight:bold;
-}
-
-main{
-    width:min(1200px,94%);
-    margin:auto;
-    padding:25px 0 50px;
-}
-
-.hero{
-    padding:25px;
-    border:1px solid #26313d;
-    border-radius:18px;
-    background:linear-gradient(145deg,#0c1219,#080c11);
-    margin-bottom:20px;
-}
-
-.hero h1{
-    font-size:clamp(28px,5vw,48px);
-    margin-bottom:10px;
-}
-
-.hero p{
-    color:#a5b0bb;
-    max-width:850px;
-}
-
-.tags{
-    display:flex;
-    flex-wrap:wrap;
-    gap:8px;
-    margin-top:18px;
-}
-
-.tag{
-    padding:7px 11px;
-    border:1px solid #303c49;
-    border-radius:20px;
-    color:#b9c4ce;
-    font-size:12px;
-}
-
-.tripo{
-    margin-top:22px;
-    display:inline-block;
-    text-decoration:none;
-    color:#fff;
-    background:#1769ff;
-    padding:13px 18px;
-    border-radius:10px;
-    font-weight:bold;
-}
-
-.tripo:hover{
-    opacity:.85;
-}
-
-.grid{
-    display:grid;
-    grid-template-columns:1.5fr 1fr;
-    gap:20px;
-}
-
-.panel{
-    background:#0b1118;
-    border:1px solid #26313d;
-    border-radius:16px;
-    padding:20px;
-    margin-bottom:20px;
-}
-
-.panel h2{
-    font-size:19px;
-    margin-bottom:15px;
-}
-
-.model{
-    min-height:430px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    overflow:auto;
-    border:1px solid #222d38;
-    border-radius:12px;
-    background:
-        radial-gradient(circle at center,#18222c 0,#0b1016 48%,#070a0e 100%);
-}
-
-.plant{
-    min-width:760px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    gap:8px;
-    padding:40px;
-}
-
-.machine{
-    width:130px;
-    height:105px;
-    border:2px solid #526171;
-    border-radius:12px;
-    background:#151e27;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    text-align:center;
-    font-size:12px;
-    font-weight:bold;
-    cursor:pointer;
-    transition:.2s;
-    position:relative;
-}
-
-.machine:hover,
-.machine.active{
-    transform:translateY(-5px);
-    border-color:#fff;
-}
-
-.sensor-dot{
-    width:10px;
-    height:10px;
-    border-radius:50%;
-    background:#50ee86;
-    position:absolute;
-    top:9px;
-    right:9px;
-    box-shadow:0 0 10px #50ee86;
-}
-
-.pipe{
-    width:45px;
-    height:10px;
-    border-radius:8px;
-    background:#566473;
-}
-
-.hint{
-    color:#778491;
-    font-size:12px;
-    margin-top:12px;
-    text-align:center;
-}
-
-.sensor-grid{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:10px;
-}
-
-.sensor{
-    padding:15px;
-    border:1px solid #27333f;
-    border-radius:11px;
-    background:#121a22;
-}
-
-.sensor-name{
-    color:#8f9ca8;
-    font-size:12px;
-}
-
-.sensor-value{
-    font-size:23px;
-    font-weight:bold;
-    margin-top:5px;
-}
-
-.good{
-    color:#64ed91;
-}
-
-.warning{
-    color:#ffc857;
-}
-
-button{
-    border:0;
-    border-radius:9px;
-    padding:12px 15px;
-    cursor:pointer;
-    font-weight:bold;
-}
-
-.simulate{
-    margin-top:14px;
-    background:#e7edf3;
-    color:#081018;
-    width:100%;
-}
-
-.ai-status{
-    display:inline-block;
-    padding:8px 12px;
-    border-radius:8px;
-    background:#0d2918;
-    color:#65ed91;
-    font-size:12px;
-    font-weight:bold;
-    margin-bottom:13px;
-}
-
-.ai-message{
-    color:#aab5bf;
-}
-
-.info{
-    color:#aab5bf;
-}
-
-.info strong{
-    color:#fff;
-}
-
-.component-list{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:9px;
-    margin-top:15px;
-}
-
-.component-button{
-    background:#121a22;
-    color:#dce4eb;
-    border:1px solid #2b3743;
-}
-
-.component-button:hover{
-    border-color:#fff;
-}
-
-.architecture{
-    display:grid;
-    grid-template-columns:repeat(5,1fr);
-    gap:8px;
-    align-items:center;
-}
-
-.stage{
-    padding:15px 8px;
-    text-align:center;
-    background:#121a22;
-    border:1px solid #2b3743;
-    border-radius:10px;
-    font-size:12px;
-}
-
-.arrow{
-    text-align:center;
-    color:#778591;
-}
-
-.ai-box{
-    border:1px solid #26333f;
-    background:#0d141c;
-    border-radius:12px;
-    padding:18px;
-}
-
-.ai-box p{
-    color:#a6b1bc;
-    font-size:14px;
-}
-
-footer{
-    text-align:center;
-    border-top:1px solid #222d37;
-    padding:25px;
-    color:#75818d;
-    font-size:12px;
-}
-
-.demo{
-    color:#e7b94e;
-    margin-top:5px;
-}
-
-@media(max-width:850px){
-    .grid{
-        grid-template-columns:1fr;
-    }
-
-    .architecture{
-        grid-template-columns:1fr;
-    }
-
-    .arrow{
-        transform:rotate(90deg);
-    }
-}
-
-@media(max-width:600px){
-    .header{
-        flex-direction:column;
-        align-items:flex-start;
-    }
-
-    .sensor-grid{
-        grid-template-columns:1fr;
-    }
-
-    .component-list{
-        grid-template-columns:1fr;
-    }
-
-    .hero,
-    .panel{
-        padding:15px;
-    }
-}
+:root{--bg:#041519;--panel:#0a2227;--line:#16393f;--ink:#e4f3f0;--mute:#86a8a8;--sea:#41d6c3;--amber:#f2b043;--alarm:#ff6256;--blue:#5aa9ff;color-scheme:dark;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:light){:root:not([data-theme="dark"]){--bg:#f1f7f6;--panel:#fff;--line:#cfe0de;--ink:#0b2a2d;--mute:#4c6b6d;--sea:#007f73;--amber:#a86a00;--alarm:#c4261a;--blue:#1b5fc4;color-scheme:light}}
+:root[data-theme="dark"]{--bg:#041519;--panel:#0a2227;--line:#16393f;--ink:#e4f3f0;--mute:#86a8a8;--sea:#41d6c3;--amber:#f2b043;--alarm:#ff6256;--blue:#5aa9ff}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--ink);font-family:Barlow,Arial,sans-serif;line-height:1.55}
+h1,h2,h3,.big{font-family:"Barlow Condensed","Arial Narrow",Arial,sans-serif;font-weight:700;letter-spacing:.01em}
+main{width:min(1100px,92%);margin:0 auto;padding:20px 0 40px}
+.top{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding:14px 0;border-bottom:1px solid var(--line)}
+.brand{font-size:22px;font-family:"Barlow Condensed",Arial,sans-serif;font-weight:700}
+.demo{font-size:12px;color:var(--amber);border:1px solid var(--amber);border-radius:6px;padding:4px 9px}
+.hero{padding:34px 0 18px}
+.hero h1{font-size:clamp(36px,8vw,68px);line-height:1.02;max-width:14em}
+.hero p{color:var(--mute);max-width:46em;margin-top:12px}
+.row{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+button{font:inherit;font-weight:600;border:1px solid var(--line);background:var(--panel);color:var(--ink);border-radius:8px;padding:11px 15px;cursor:pointer}
+button:focus-visible,a:focus-visible{outline:2px solid var(--sea);outline-offset:2px}
+.go{background:var(--alarm);border-color:var(--alarm);color:#fff}
+.chaos:disabled{opacity:.5;cursor:wait}
+.alt{background:var(--sea);border-color:var(--sea);color:#022}
+section{margin-top:26px}
+h2{font-size:26px;margin-bottom:10px}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:16px}
+.flow{display:flex;gap:0;overflow-x:auto;padding:6px 2px 12px}
+.node{flex:0 0 118px;text-align:left;padding:10px;border-radius:8px;position:relative}
+.node b{display:block;font-family:"Barlow Condensed",Arial,sans-serif;font-size:18px}
+.node small{color:var(--mute);font-size:12px}
+.node.on{border-color:var(--sea)}
+.node.hot{border-color:var(--alarm);animation:hot .5s 6}
+@keyframes hot{50%{background:var(--alarm);color:#fff}}
+.pipe{flex:0 0 22px;align-self:center;height:3px;background:repeating-linear-gradient(90deg,var(--sea) 0 6px,transparent 6px 10px);background-size:10px 3px;animation:fl 1s linear infinite}
+@keyframes fl{to{background-position:10px 0}}
+.detail{margin-top:8px;border-top:1px solid var(--line);padding-top:12px}
+.detail h3{font-size:22px}.tags{color:var(--sea);font-size:13px}
+.detail p{color:var(--mute);max-width:60em;margin-top:4px}
+.steps{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+.st{font-size:13px;padding:5px 10px;border:1px solid var(--line);border-radius:20px;color:var(--mute)}
+.st.on{color:#022;background:var(--sea);border-color:var(--sea)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px}
+.sens .l{color:var(--mute);font-size:13px}
+.sens .v{font-size:30px;font-family:"Barlow Condensed",Arial,sans-serif;font-weight:700}
+.sens .v.w{color:var(--alarm)}
+.sens svg{width:100%;height:34px;display:block;margin-top:4px}
+.sens polyline{fill:none;stroke:var(--sea);stroke-width:1.6;vector-effect:non-scaling-stroke}
+.sens.alarm polyline{stroke:var(--alarm)}
+.chip{display:inline-block;font-size:13px;font-weight:600;padding:5px 11px;border-radius:6px;border:1px solid var(--sea);color:var(--sea)}
+.chip.alert{color:var(--alarm);border-color:var(--alarm)}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.seg button{border:0;border-radius:0}.seg .sel{background:var(--sea);color:#022}
+.mb{width:100%;border-collapse:collapse;font-size:15px}
+.mb td,.mb th{text-align:left;padding:8px 6px;border-bottom:1px solid var(--line);vertical-align:middle}
+.mb th{color:var(--mute);font-weight:400;font-size:13px}
+.bar{height:8px;border-radius:4px;background:var(--sea);min-width:2px}
+.scroll{overflow-x:auto}
+.big{font-size:clamp(34px,7vw,52px);color:var(--sea);line-height:1}
+input[type=range]{width:100%;accent-color:var(--sea);margin:8px 0}
+.log{list-style:none;max-height:210px;overflow:auto;font-size:14px}
+.log li{padding:6px 0;border-bottom:1px solid var(--line);color:var(--mute)}
+.log li b{color:var(--ink)}.log li.a b{color:var(--alarm)}
+footer{margin-top:34px;padding-top:16px;border-top:1px solid var(--line);color:var(--mute);font-size:13px}
+footer a{color:var(--blue)}
+@media(prefers-reduced-motion:reduce){.pipe,.node.hot{animation:none}}
 </style>
 </head>
-
-
 <body>
-
-<header>
-<div class="header">
-
-<div>
-<div class="logo">ARCS AI</div>
-<div class="subtitle">
-Autonomous Recycling & Circular Systems
-</div>
-</div>
-
-<div class="online">
-● DIGITAL TWIN ONLINE
-</div>
-
-</div>
-</header>
-
-
 <main>
-
-<section class="hero">
-
-<h1>Industrial AI Digital Twin</h1>
-
-<p>
-An interactive prototype for an AI-assisted plastic-waste processing
-system combining industrial process visualization, sensor intelligence,
-component monitoring and future Gemini-powered analysis.
-</p>
-
-<div class="tags">
-<span class="tag">AI</span>
-<span class="tag">Digital Twin</span>
-<span class="tag">Industrial IoT</span>
-<span class="tag">3D Visualization</span>
-<span class="tag">Circular Economy</span>
-<span class="tag">Sustainability</span>
+<div class="top">
+  <div class="brand">A.R.C.S. Technologies</div>
+  <div class="demo">Demonstration mode: all telemetry is simulated</div>
 </div>
 
-<a
-class="tripo"
-href="https://studio.tripo3d.ai/3d-model/a7b57c2e-7957-4389-8e2b-32e2d60e193e?invite_code=03ESNP"
-target="_blank"
-rel="noopener noreferrer">
-
-🚀 VIEW FULL 3D MODEL ON TRIPO
-
-</a>
-
-</section>
-
-
-<div class="grid">
-
+<div class="hero">
+  <h1>A 1-ton-a-day refinery that protects itself from PVC.</h1>
+  <p>Unsorted plastic releases hydrochloric acid and dioxins in normal pyrolysis. A.R.C.S. watches for chlorine with LIBS and mid-IR laser sensors and reacts in under 2 ms. Try it: trigger one of three emergencies and watch the Edge-AI respond.</p>
+  <div class="row">
+    <button class="go chaos" id="bPvc">Inject PVC spike</button>
+    <button class="chaos" id="bNight">Night / cloud drop</button>
+    <button class="chaos" id="bCo2">CO₂ surge alert</button>
+    <div class="seg" role="group" aria-label="Time of day">
+      <button id="day" class="sel">Daylight</button><button id="night">Night</button>
+    </div>
+    <span class="chip" id="status">System normal</span>
+  </div>
+</div>
 
 <section>
-
-<div class="panel">
-
-<h2>🏭 Interactive Industrial Digital Twin</h2>
-
-<div class="model">
-
-<div class="plant">
-
-<div class="machine"
-onclick="selectComponent('Primary Shredder',this)">
-<span class="sensor-dot"></span>
-PRIMARY<br>SHREDDER
-</div>
-
-<div class="pipe"></div>
-
-<div class="machine"
-onclick="selectComponent('Cryogenic Feed',this)">
-<span class="sensor-dot"></span>
-CRYOGENIC<br>FEED
-</div>
-
-<div class="pipe"></div>
-
-<div class="machine"
-onclick="selectComponent('Quartz Reactor',this)">
-<span class="sensor-dot"></span>
-QUARTZ<br>REACTOR
-</div>
-
-<div class="pipe"></div>
-
-<div class="machine"
-onclick="selectComponent('Condenser',this)">
-<span class="sensor-dot"></span>
-CONDENSER
-</div>
-
-<div class="pipe"></div>
-
-<div class="machine"
-onclick="selectComponent('Gas Scrubber',this)">
-<span class="sensor-dot"></span>
-GAS<br>SCRUBBER
-</div>
-
-</div>
-
-</div>
-
-<div class="hint">
-Tap a machine component to inspect its function.
-</div>
-
-</div>
-
-
-<div class="panel">
-
-<h2>🔍 Component Intelligence</h2>
-
-<h3 id="componentName">
-Select a component
-</h3>
-
-<p class="info" id="componentInfo">
-Choose a component from the digital twin.
-</p>
-
-<div class="component-list">
-
-<button class="component-button"
-onclick="selectComponent('Primary Shredder')">
-Primary Shredder
-</button>
-
-<button class="component-button"
-onclick="selectComponent('Cryogenic Feed')">
-Cryogenic Feed
-</button>
-
-<button class="component-button"
-onclick="selectComponent('Quartz Reactor')">
-Quartz Reactor
-</button>
-
-<button class="component-button"
-onclick="selectComponent('Condenser')">
-Condenser
-</button>
-
-<button class="component-button"
-onclick="selectComponent('Gas Scrubber')">
-Gas Scrubber
-</button>
-
-<button class="component-button"
-onclick="selectComponent('AI Control System')">
-AI Control System
-</button>
-
-</div>
-
-</div>
-
-
-<div class="panel">
-
-<h2>🔄 Process Architecture</h2>
-
-<div class="architecture">
-
-<div class="stage">
-Plastic<br>Feedstock
-</div>
-
-<div class="arrow">→</div>
-
-<div class="stage">
-Size<br>Reduction
-</div>
-
-<div class="arrow">→</div>
-
-<div class="stage">
-Thermal<br>Processing
-</div>
-
-<div class="arrow">→</div>
-
-<div class="stage">
-Condensation<br>& Treatment
-</div>
-
-<div class="arrow">→</div>
-
-<div class="stage">
-Recovery &<br>Monitoring
-</div>
-
-</div>
-
-</div>
-
+  <h2>Seven stages, one control loop</h2>
+  <div class="panel">
+    <div class="flow" id="flow" role="list"></div>
+    <div class="detail"><h3 id="dn"></h3><div class="tags" id="dt"></div><p id="dd"></p></div>
+    <div class="chip" id="lat" style="margin-top:14px">Edge-AI override latency: run a test above</div>
+    <div class="steps" id="steps" aria-live="polite"><span class="st">Pick an emergency above to see the response, step by step.</span></div>
+  </div>
 </section>
-
 
 <section>
-
-<div class="panel">
-
-<h2>📡 Sensor Dashboard</h2>
-
-<div class="sensor-grid">
-
-<div class="sensor">
-<div class="sensor-name">🌡 Temperature</div>
-<div class="sensor-value" id="temperature">742 °C</div>
-</div>
-
-<div class="sensor">
-<div class="sensor-name">🔵 Pressure</div>
-<div class="sensor-value" id="pressure">1.08 bar</div>
-</div>
-
-<div class="sensor">
-<div class="sensor-name">🌊 Flow</div>
-<div class="sensor-value" id="flow">18.4 L/min</div>
-</div>
-
-<div class="sensor">
-<div class="sensor-name">📳 Vibration</div>
-<div class="sensor-value" id="vibration">2.7 mm/s</div>
-</div>
-
-<div class="sensor">
-<div class="sensor-name">⚡ Motor Current</div>
-<div class="sensor-value" id="current">31.2 A</div>
-</div>
-
-<div class="sensor">
-<div class="sensor-name">🧪 Gas Index</div>
-<div class="sensor-value" id="gas">0.18</div>
-</div>
-
-</div>
-
-<button
-class="simulate"
-onclick="simulateSensors()">
-
-⚙️ RUN SENSOR SIMULATION
-
-</button>
-
-</div>
-
-
-<div class="panel">
-
-<h2>🧠 AI Control System</h2>
-
-<div class="ai-box">
-
-<div class="ai-status" id="aiStatus">
-AI STATUS: NORMAL
-</div>
-
-<p id="aiMessage">
-The digital twin is monitoring the simulated process
-parameters. Future hardware integration can replace the
-simulation layer with real sensor measurements.
-</p>
-
-</div>
-
-</div>
-
-
-<div class="panel">
-
-<h2>📊 System Status</h2>
-
-<p class="info">
-<strong>Process:</strong> RUNNING
-</p>
-
-<p class="info">
-<strong>Digital Twin:</strong> ACTIVE
-</p>
-
-<p class="info">
-<strong>Sensor Layer:</strong> SIMULATION
-</p>
-
-<p class="info">
-<strong>AI Layer:</strong> READY
-</p>
-
-<p class="info">
-<strong>3D Model:</strong>
-<a
-href="https://studio.tripo3d.ai/3d-model/a7b57c2e-7957-4389-8e2b-32e2d60e193e?invite_code=03ESNP"
-target="_blank"
-rel="noopener noreferrer"
-style="color:#6da5ff">
-
-Open Tripo Model
-
-</a>
-</p>
-
-</div>
-
+  <h2>Live telemetry</h2>
+  <div class="grid" id="sens"></div>
 </section>
 
-</div>
-
-
-<section class="panel">
-
-<h2>🧠 AI Data Pipeline</h2>
-
-<div class="architecture">
-
-<div class="stage">
-Sensors
-</div>
-
-<div class="arrow">→</div>
-
-<div class="stage">
-Digital<br>Twin
-</div>
-
-<div class="arrow">→</div>
-
-<div class="stage">
-AI<br>Analysis
-</div>
-
-<div class="arrow">→</div>
-
-<div class="stage">
-Anomaly<br>Detection
-</div>
-
-<div class="arrow">→</div>
-
-<div class="stage">
-Operator<br>Decision
-</div>
-
-</div>
-
+<section>
+  <h2>Coastal scale-up: 1 to 100 factories</h2>
+  <div class="panel">
+    <div class="grid">
+      <div><div class="l" style="color:var(--mute)">Revenue per day, pilot-model target</div><div class="big" id="rev"></div><p style="color:var(--mute);font-size:13px;margin-top:6px">Linear scaling of the 1-TPD pilot model across <span id="un">1</span> factory(ies), 1 ton of plastic per day each. Targets pending lab validation.</p></div>
+      <div><label for="units" style="color:var(--mute)">Coastal factories (1 TPD each): <b id="ul" style="color:var(--ink)">1</b></label><input id="units" type="range" min="1" max="100" value="1"><div id="co2" style="color:var(--mute)"></div></div>
+    </div>
+    <div class="scroll" style="margin-top:12px"><table class="mb" id="mb"></table></div>
+  </div>
 </section>
 
-
-<section class="panel">
-
-<h2>🌐 Project Links</h2>
-
-<p class="info">
-<strong>3D Model:</strong>
-</p>
-
-<p>
-<a
-href="https://studio.tripo3d.ai/3d-model/a7b57c2e-7957-4389-8e2b-32e2d60e193e?invite_code=03ESNP"
-target="_blank"
-rel="noopener noreferrer"
-style="color:#6da5ff;word-break:break-all">
-
-https://studio.tripo3d.ai/3d-model/a7b57c2e-7957-4389-8e2b-32e2d60e193e?invite_code=03ESNP
-
-</a>
-</p>
-
+<section>
+  <h2>Event log</h2>
+  <div class="panel"><ul class="log" id="log"></ul></div>
 </section>
-
-</main>
-
 
 <footer>
-
-<p>
-ARCS AI • Industrial Digital Twin Prototype
-</p>
-
-<p class="demo">
-⚠ DEMONSTRATION MODE — Sensor readings shown here are simulated
-and are not measurements from physical sensors.
-</p>
-
+  <p>Roadmap: phase one places units at river mouths along the Indian coast; profits then fund autonomous ocean cleanup ships. Demonstration mode: sensor values, detection latency and financial figures are simulated and subject to lab validation.</p>
+  <p style="margin-top:6px"><a href="https://studio.tripo3d.ai/3d-model/a7b57c2e-7957-4389-8e2b-32e2d60e193e?invite_code=03ESNP" target="_blank" rel="noopener noreferrer">Open the 3D model on Tripo</a></p>
 </footer>
-
+</main>
 
 <script>
+const ST=[
+["Prep","M101, V102, T103, LIBS","Shreds plastic to 10 mm with a 15 kW shredder, freezes it in a −150 °C liquid-nitrogen chamber, then fractures it below 100 µm with 28 kHz ultrasound. A 1064 nm LIBS scanner reads chlorine at 479.4 nm before material reaches the reactor."],
+["Core","R201, H201, D201","A 99.99% SiO₂ fused-silica vacuum reactor cracks plastic at 500 °C (rated to 1,200 °C), heated through a dual-axis perovskite solar shroud."],
+["Oil","E301, Vessel A","A 316L shell-and-tube condenser feeds a 65 °C buffer tank. A 1–2 GHz guided-wave radar triggers automatic release at 85% full."],
+["Scrub","I301","A vertical FRP and ceramic acid scrubber turns PVC chlorine into 35% aqueous hydrochloric acid, which is sold rather than wasted."],
+["H₂","R301, EHC301, Vessel B","A TiO₂/ZnO UV photocatalytic honeycomb makes green hydrogen. A solid-state electrochemical compressor stores it at 350 bar in Type IV carbon-fibre cylinders."],
+["Carbon","PBR401, Vessel C","1,000 L Chlorella and Scenedesmus algae reactors, read at 680 and 720 nm, capture CO₂. A Hastelloy C-276 shunt turns excess CO₂ and concrete washwater into CaCO₃ bricks."],
+["Night","SOFC loop","25% of daylight hydrogen feeds a solid oxide fuel cell whose exhaust (above 600 °C) keeps pyrolysis at 500 °C off-grid overnight."]];
+const MB=[["Pyrolysis bio-oil",650,"kg",36000],["Protein algal biomass",180,"kg",108000],["Hydrochloric acid, 35%",320,"kg",1600],["Green hydrogen, 350 bar",30,"kg",11160]];
+const $=i=>document.getElementById(i);
+const fmt=n=>Math.round(n).toLocaleString("en-IN");
+let night=false,pvc=false,sel=0,units=1;
 
-const components = {
+// stages
+const flow=$("flow");
+ST.forEach((s,i)=>{
+  if(i){const p=document.createElement("div");p.className="pipe";flow.appendChild(p)}
+  const b=document.createElement("button");b.className="node";b.id="n"+i;
+  b.innerHTML="<b>"+s[0]+"</b><small>"+s[1].split(",")[0]+"</small>";
+  b.onclick=()=>pick(i);flow.appendChild(b);
+});
+function pick(i){sel=i;ST.forEach((_,k)=>$("n"+k).classList.toggle("on",k===i));
+  $("dn").textContent="Stage "+(i+1)+": "+ST[i][0];$("dt").textContent="Tags: "+ST[i][1];$("dd").textContent=ST[i][2]}
+pick(0);
 
-"Primary Shredder":
-"Represents the primary mechanical size-reduction stage for incoming plastic feedstock.",
+// sensors
+const SN=[
+ {id:"t",l:"Reactor temperature",u:"°C",f:()=>(night?497+rnd(6):500+rnd(8))-dip,d:0,lo:470,hi:520},
+ {id:"p",l:"Reactor pressure",u:"bar",f:()=>1.08+rnd(.03)-.015,d:2,lo:1,hi:1.2},
+ {id:"c",l:"Chlorine signal (QCL, 3.46 µm)",u:"ppm",f:()=>pvc?cl:3+rnd(2),d:1,lo:0,hi:200,alarm:1,thr:20},
+ {id:"x",l:"Gas index",u:"",f:()=>gas+rnd(.03),d:2,lo:0,hi:1,alarm:1,thr:.5},
+ {id:"h",l:"Green H₂ output",u:"kg/h",f:()=>night?0:+(1.5+rnd(.3)).toFixed(2),d:2,lo:0,hi:2},
+ {id:"s",l:"Solar input",u:"%",f:()=>night?0:88+rnd(8),d:0,lo:0,hi:100},
+ {id:"f",l:"SOFC output",u:"kW",f:()=>night?4.2+rnd(.3):0,d:1,lo:0,hi:6},
+ {id:"a",l:"Algae tank CO₂ load",u:"%",f:()=>load+rnd(3),d:0,lo:0,hi:130,alarm:1,thr:100}
+];
+const rnd=x=>Math.random()*x;
+let cl=3,gas=.18,load=62,dip=0,busy="";
+SN.forEach(s=>{s.h=Array(40).fill(null);const d=document.createElement("div");d.className="panel sens";d.id="w"+s.id;
+ d.innerHTML='<div class="l">'+s.l+'</div><div class="v" id="v'+s.id+'"></div><svg viewBox="0 0 120 32" preserveAspectRatio="none" aria-hidden="true"><polyline id="g'+s.id+'"/></svg>';
+ $("sens").appendChild(d)});
+function tick(){
+ SN.forEach(s=>{const v=s.f();s.h.push(v);s.h.shift();
+  $("v"+s.id).textContent=v.toFixed(s.d)+" "+s.u;
+  $("v"+s.id).classList.toggle("w",!!s.alarm&&v>s.thr);
+  $("w"+s.id).classList.toggle("alarm",!!s.alarm&&v>s.thr);
+  const pts=s.h.map((y,i)=>y===null?"":(i*120/39).toFixed(1)+","+(30-(y-s.lo)/(s.hi-s.lo)*28).toFixed(1)).filter(Boolean).join(" ");
+  $("g"+s.id).setAttribute("points",pts)});
+ $("status").textContent=busy||(night?"Night mode, SOFC loop running":"System normal");
+ $("status").classList.toggle("alert",!!busy);
+}
+setInterval(tick,800);tick();
 
-"Cryogenic Feed":
-"Represents controlled feedstock preparation and insulated material-transfer infrastructure.",
+// log
+function log(t,a){const li=document.createElement("li");if(a)li.className="a";
+ li.innerHTML="<b>"+new Date().toLocaleTimeString()+"</b> "+t;$("log").prepend(li)}
+log("Digital twin online in demonstration mode.");
 
-"Quartz Reactor":
-"Represents the high-temperature processing chamber in the ARCS process concept.",
-
-"Condenser":
-"Represents cooling and condensation of process vapors into recoverable fractions.",
-
-"Gas Scrubber":
-"Represents a gas-treatment stage intended to reduce unwanted process-gas components.",
-
-"AI Control System":
-"Monitors process parameters and can later use Gemini-based reasoning for anomaly detection, explanations and operator assistance."
-
+// chaos-to-save events
+const hot=i=>$("n"+i).classList.add("hot");
+function run(name,steps,done){
+  if(busy)return;busy=name;
+  document.querySelectorAll(".chaos").forEach(b=>b.disabled=true);
+  $("steps").innerHTML=steps.map((s,i)=>'<span class="st" id="s'+i+'">'+(i+1)+" "+s[1]+"</span>").join("");
+  steps.forEach((s,i)=>setTimeout(()=>{$("s"+i).classList.add("on");s[2]();if(s[3])log(s[3],1)},s[0]));
+  setTimeout(()=>{done();busy="";
+    document.querySelectorAll(".chaos").forEach(b=>b.disabled=false);
+    document.querySelectorAll(".node").forEach(n=>n.classList.remove("hot"))},steps[steps.length-1][0]+2500);
+}
+$("bPvc").onclick=()=>{
+  const ms=(1.1+rnd(.8)).toFixed(2);
+  run("Emergency: PVC in feed",[
+   [0,"PVC detected, Gas Index in the red",()=>{pvc=true;gas=.95;cl=185;hot(0);$("lat").textContent="Edge-AI FPGA override: "+ms+" ms (simulated, target under 2 ms)"},"PVC spike: LIBS (Cl 479.4 nm) and QCL gas sensor agree. Edge-AI override fired in "+ms+" ms (simulated)."],
+   [1200,"Acid scrubber I301 on",()=>{hot(3);cl=90;gas=.6},"Scrubber I301 at maximum. Chlorine converting to aqueous hydrochloric acid."],
+   [2600,"Reactor protected",()=>{cl=35;gas=.3},"Gas Index falling. Quartz reactor never saw the chlorine."],
+   [4400,"Feed resumed",()=>{cl=3;gas=.18},"Chlorine back in range. Feed resumed, recovered acid added to stage 4 output."]
+  ],()=>{pvc=false;cl=3;gas=.18});
+};
+$("bNight").onclick=()=>{
+  const was=night;
+  run("Emergency: sunlight lost",[
+   [0,"Sunlight drops to 0%",()=>{dip=14;hot(1);setNight(true)},"Cloud drop: solar input at 0%. Reactor temperature starting to fall."],
+   [1500,"SOFC night loop fires",()=>{hot(6);dip=2},"Hydrogen fuel cell started. Exhaust above 600 °C now heats the reactor."],
+   [3000,"Core steady at 500 °C",()=>{dip=0},"Reactor core back to 500 °C, running off-grid."]
+  ],()=>{dip=0;setNight(was)});
+};
+$("bCo2").onclick=()=>{
+  run("Emergency: CO₂ surge",[
+   [0,"Algae tanks overloaded",()=>{load=118;hot(5)},"CO₂ surge: algae reactors PBR401 at 118% load."],
+   [1300,"Excess CO₂ shunted to Vessel C",()=>{load=95},"Hastelloy C-276 shunt open. CO₂ and concrete washwater now forming CaCO₃ slurry."],
+   [2800,"Green-concrete slurry forming",()=>{load=74},"Calcium mineralisation running. Carbon is locked into bricks instead of vented."],
+   [4400,"Algae load normal",()=>{load=62},"Algae load back to 62%."]
+  ],()=>{load=62});
 };
 
+// day / night
+function setNight(n){night=n;$("night").classList.toggle("sel",n);$("day").classList.toggle("sel",!n);
+  log(n?"Night mode: 25% of stored H₂ routed to SOFC to hold 500 °C off-grid.":"Daylight mode: perovskite solar shroud heating the reactor.")}
+$("day").onclick=()=>setNight(false);$("night").onclick=()=>setNight(true);
 
-function selectComponent(name,element){
-
-document.getElementById("componentName")
-.textContent=name;
-
-document.getElementById("componentInfo")
-.textContent=components[name] ||
-"Component information unavailable.";
-
-document
-.querySelectorAll(".machine")
-.forEach(x=>x.classList.remove("active"));
-
-if(element){
-element.classList.add("active");
+// economics
+function eco(){
+  const tot=MB.reduce((a,m)=>a+m[3],0)*units;
+  $("rev").textContent="₹"+fmt(tot);$("un").textContent=units;
+  $("ul").textContent=units;
+  $("co2").innerHTML="Plastic kept out of rivers and sea: <b style='color:var(--ink)'>"+fmt(units)+" tons/day</b> ("+fmt(365*units)+" tons/year)<br>Green hydrogen: <b style='color:var(--ink)'>"+fmt(30*units)+" kg/day</b>, target cost ₹150–₹180/kg<br>CO₂ trapped: "+fmt(250*units)+" kg/day, O₂ released: "+fmt(200*units)+" kg/day";
+  const mx=Math.max(...MB.map(m=>m[3]));
+  $("mb").innerHTML="<tr><th>Product</th><th>Per day</th><th>Revenue per day</th><th></th></tr>"+
+   MB.map(m=>"<tr><td>"+m[0]+"</td><td>"+fmt(m[1]*units)+" "+m[2]+"</td><td>₹"+fmt(m[3]*units)+'</td><td style="width:30%"><div class="bar" style="width:'+(m[3]/mx*100)+'%"></div></td></tr>').join("");
 }
-
-}
-
-
-function simulateSensors(){
-
-const temperature =
-Math.round(700 + Math.random()*100);
-
-const pressure =
-(0.9 + Math.random()*0.4).toFixed(2);
-
-const flow =
-(15 + Math.random()*8).toFixed(1);
-
-const vibration =
-(1.5 + Math.random()*2).toFixed(1);
-
-const current =
-(25 + Math.random()*12).toFixed(1);
-
-const gas =
-(0.10 + Math.random()*0.20).toFixed(2);
-
-
-document.getElementById("temperature")
-.textContent=temperature+" °C";
-
-document.getElementById("pressure")
-.textContent=pressure+" bar";
-
-document.getElementById("flow")
-.textContent=flow+" L/min";
-
-document.getElementById("vibration")
-.textContent=vibration+" mm/s";
-
-document.getElementById("current")
-.textContent=current+" A";
-
-document.getElementById("gas")
-.textContent=gas;
-
-
-let status="AI STATUS: NORMAL";
-
-let message=
-"AI monitoring: current simulated parameters appear within the demonstration range.";
-
-
-if(temperature>780){
-
-status="AI STATUS: ATTENTION";
-
-message=
-"AI monitoring: elevated simulated temperature detected. Thermal-control inspection recommended.";
-
-}
-
-if(vibration>3.2){
-
-status="AI STATUS: ATTENTION";
-
-message=
-"AI monitoring: elevated simulated vibration detected. Rotating-equipment inspection recommended.";
-
-}
-
-
-document.getElementById("aiStatus")
-.textContent=status;
-
-document.getElementById("aiMessage")
-.textContent=message;
-
-}
-
-
+$("units").oninput=e=>{units=+e.target.value;eco()};eco();
 </script>
-
 </body>
-  </html>
+          </html>
